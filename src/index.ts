@@ -1,9 +1,15 @@
-import fs from 'fs';
+import { CsvFileReaderService } from "./CsvFileReader.service";
 
 
-const matches = fs.readFileSync('football.csv', { encoding: 'utf-8' }).split('\n').map((row) => row.split(','));
-
+const reader = new CsvFileReaderService('football.csv');
+const matches = reader.read();
 console.log(matches);
+
+enum MatchResult {
+  HomeWin = 'H',
+  AwayWin = 'A',
+  Draw = 'D'
+}
 
 const manUnitedWins = matches.reduce((manUnitedWins, match) => {
   const manchesterName = 'Man United'
