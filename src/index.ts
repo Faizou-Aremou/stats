@@ -1,19 +1,17 @@
 import { CsvFileReaderService } from "./CsvFileReader.service";
-
-
-const reader = new CsvFileReaderService('football.csv');
-const matches = reader.read();
-console.log(matches);
-
-enum MatchResult {
-  HomeWin = 'H',
-  AwayWin = 'A',
-  Draw = 'D'
+import { MatchData } from "./MatchData";
+import { MatchResult } from "./MatchResult";
+import { dateStringToDate } from "./utils";
+const fileParser = (fileData: string[][]): MatchData[] => {
+  return fileData.map((row) => [dateStringToDate(row[0]), row[1], row[2], parseInt(row[3]), parseInt(row[4]), row[5] as MatchResult, row[6]] as MatchData);
 }
+const footMatchReader = new CsvFileReaderService('football.csv', fileParser);
+const matches = footMatchReader.read();
+console.log(matches);
 
 const manUnitedWins = matches.reduce((manUnitedWins, match) => {
   const manchesterName = 'Man United'
-  if ((match[1] === manchesterName && match[5] === 'H') || (match[2] === manchesterName && match[5] === 'A')) {
+  if ((match[1] === manchesterName && match[5] === MatchResult.HomeWin) || (match[2] === manchesterName && match[5] === 'A')) {
     return manUnitedWins + 1
   }
   return manUnitedWins

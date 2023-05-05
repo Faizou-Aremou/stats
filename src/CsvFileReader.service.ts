@@ -1,12 +1,12 @@
 import fs from 'fs';
-export class CsvFileReaderService {
-  data: string[][] = []
-
-  constructor(public filename: string) {
-    this.data = fs.readFileSync('football.csv', { encoding: 'utf-8' }).split('\n').map((row) => row.split(','));
+import { MatchResult } from './MatchResult';
+import { dateStringToDate } from './utils';
+export class CsvFileReaderService<T> {
+  private data: T[] = []
+  constructor(public filename: string, fileParser: (fileData: string[][]) => T[]) {
+    this.data = fileParser(fs.readFileSync(filename, { encoding: 'utf-8' }).split('\n').map((row) => row.split(',')))
   }
-
-  read(): string[][] {
+  read(): T[] {
     return this.data;
   }
 }
