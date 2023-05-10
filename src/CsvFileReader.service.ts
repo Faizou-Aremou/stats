@@ -1,6 +1,4 @@
 import fs from 'fs';
-import { MatchResult } from './MatchResult';
-import { dateStringToDate } from './utils';
 export class CsvFileReaderService<T> {
   private data: T[] = []
   constructor(public filename: string, fileParser: (fileData: string[][]) => T[]) {
