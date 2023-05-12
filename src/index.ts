@@ -9,12 +9,6 @@ const footMatchReader = new CsvFileReaderService('football.csv', fileParser);
 const matches = footMatchReader.read();
 console.log(matches);
 
-const manUnitedWins = matches.reduce((manUnitedWins, match) => {
-  const manchesterName = 'Man United'
-  if ((match[1] === manchesterName && match[5] === MatchResult.HomeWin) || (match[2] === manchesterName && match[5] === 'A')) {
-    return manUnitedWins + 1
-  }
-  return manUnitedWins
-}, 0)
+const manUnitedWins = 0
 
 console.log(`Man United won ${manUnitedWins} games`);
