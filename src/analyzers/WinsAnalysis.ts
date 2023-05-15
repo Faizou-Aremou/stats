@@ -8,7 +8,7 @@ export class WinAnalysis implements Analyzer<MatchData>{
   }
 
   run(matches: MatchData[]): string {
-    return `Team ${this.teamName} won ${this.analysis(matches)}`;
+    return `Team ${this.teamName} won ${this.analysis(matches)} games`;
   }
 
   private analysis(matches: MatchData[]): number {
